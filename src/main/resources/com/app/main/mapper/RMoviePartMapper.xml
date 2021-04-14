@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.main.mapper.RMoviePartMapper" >
+  <resultMap id="BaseResultMap" type="com.app.main.entity.MainDataVo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+    <result column="part_id" property="partId" jdbcType="BIGINT" />
+    <result column="movie_id" property="movieId" jdbcType="BIGINT" />
+    <result column="show_no" property="showNo" jdbcType="VARCHAR" />
+    <result column="show_start" property="showStart" jdbcType="TIMESTAMP" />
+    <result column="show_end" property="showEnd" jdbcType="TIMESTAMP" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="isGrounding" property="IS_GROUNDING" jdbcType="VARCHAR" />
+
+    <result column="PART_NAME" property="partName" jdbcType="VARCHAR" />
+    <result column="MOVIE_NAME" property="movieName" jdbcType="VARCHAR" />
+    <result column="SHOW_TIME" property="showTime" jdbcType="VARCHAR" />
+
+    <result column="MOVIE_REMARK" property="movieRemark" jdbcType="VARCHAR" />
+    <result column="PART_REMARK" property="partRemark" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="PLACE_NO" property="placeNo" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="TOTAL_PRICE" property="totalPrice" jdbcType="VARCHAR" />
+    <result column="PART_IMAGE" property="partImage" jdbcType="VARCHAR" />
+    <result column="MOVIE_IMAGE" property="movieImage" jdbcType="VARCHAR" />
+
+
+  </resultMap>
+
+    <resultMap id="PartResultMap" type="com.app.part.entity.MoviePart" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <result column="part_name" property="partName" jdbcType="VARCHAR" />
+        <result column="part_remark" property="partRemark" jdbcType="VARCHAR" />
+        <result column="image" property="image" jdbcType="VARCHAR" />
+    </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    id,created_dt,created_by,part_id,movie_id,show_no,show_start,show_end,
+    price,is_grounding
+  </sql>
+
+
+  <insert id="insert" parameterType="com.app.main.entity.RMoviePart" >
+      <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+          select LAST_INSERT_ID()
+      </selectKey>
+    insert into r_movie_part (created_dt,created_by,
+      part_id,movie_id,show_no,
+      show_start,show_end,price,is_grounding)
+    values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
+      #{partId,jdbcType=BIGINT},#{movieId,jdbcType=BIGINT},#{showNo,jdbcType=VARCHAR},
+      #{showStart,jdbcType=TIMESTAMP},#{showEnd,jdbcType=TIMESTAMP},#{price,jdbcType=DECIMAL},
+      #{isGrounding,jdbcType=VARCHAR})
+  </insert>
+
+  <update id="update" parameterType="com.app.main.entity.RMoviePart" >
+    update r_movie_part
+      <set>
+          <if test="id != null" >
+              id = #{id,jdbcType=BIGINT},
+          </if>
+          <if test="createdDt != null" >
+              created_dt = #{createdDt,jdbcType=TIMESTAMP},
+          </if>
+          <if test="createdBy != null" >
+              created_by = #{createdBy,jdbcType=VARCHAR},
+          </if>
+          <if test="partId != null" >
+              part_id = #{partId,jdbcType=BIGINT},
+          </if>
+          <if test="movieId != null" >
+              movie_id = #{movieId,jdbcType=BIGINT},
+          </if>
+          <if test="showNo != null" >
+              show_no = #{showNo,jdbcType=VARCHAR},
+          </if>
+          <if test="showStart != null" >
+              show_start = #{showStart,jdbcType=TIMESTAMP},
+          </if>
+          <if test="showEnd != null" >
+              show_end = #{showEnd,jdbcType=TIMESTAMP},
+          </if>
+          <if test="price != null" >
+              price = #{price,jdbcType=DECIMAL},
+          </if>
+          <if test="isGrounding != null" >
+              IS_GROUNDING= #{isGrounding ,jdbcType=VARCHAR},
+          </if>
+      </set>
+  		where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <delete id="delete" parameterType="com.app.main.entity.RMoviePart" >
+    delete from r_movie_part
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
+  	select
+		<include refid="Base_Column_List" />
+	from r_movie_part
+		<trim prefix="WHERE" prefixOverrides="AND |OR ">
+		      <if test="id != null" >
+		        and id = #{id,jdbcType=BIGINT}
+		      </if>
+		      <if test="createdDt != null" >
+		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="createdBy != null" >
+		        and created_by = #{createdBy,jdbcType=VARCHAR}
+		      </if>
+		      <if test="partId != null" >
+		        and part_id = #{partId,jdbcType=BIGINT}
+		      </if>
+		      <if test="movieId != null" >
+		        and movie_id = #{movieId,jdbcType=BIGINT}
+		      </if>
+		      <if test="showNo != null" >
+		        and show_no = #{showNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="showStart != null" >
+		        and show_start = #{showStart,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="showEnd != null" >
+		        and show_end = #{showEnd,jdbcType=TIMESTAMP}
+		      </if>
+		      <if test="price != null" >
+		        and price = #{price,jdbcType=DECIMAL}
+		      </if>
+            <if test="isGrounding != null" >
+                and IS_GROUNDING = #{isGrounding,jdbcType=VARCHAR}
+            </if>
+	      </trim>
+	order by id desc
+  </select>
+
+    <select id="getMovieData" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+          a.*,b.part_name, b.movie_name
+        from r_movie_part a join v_movie b on a.id = b.id
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                and a.id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="createdDt != null" >
+                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="partId != null" >
+                and a.part_id = #{partId,jdbcType=BIGINT}
+            </if>
+            <if test="movieId != null" >
+                and a.movie_id = #{movieId,jdbcType=BIGINT}
+            </if>
+            <if test="showNo != null" >
+                and a.show_no = #{showNo,jdbcType=VARCHAR}
+            </if>
+            <if test="showStart != null" >
+                and a.show_start = #{showStart,jdbcType=TIMESTAMP}
+            </if>
+            <if test="showEnd != null" >
+                and a.show_end = #{showEnd,jdbcType=TIMESTAMP}
+            </if>
+            <if test="price != null" >
+                and a.price = #{price,jdbcType=DECIMAL}
+            </if>
+            <if test="isGrounding != null" >
+                and a.IS_GROUNDING = #{isGrounding,jdbcType=VARCHAR}
+            </if>
+        </trim>
+        order by a.id desc
+    </select>
+
+    <select id="findPartIdsByMovieId" resultType="java.lang.Long" parameterType="java.lang.Long">
+      select part_id from r_movie_part where movie_id = #{movieId}
+    </select>
+
+    <delete id="deleteByPartId" parameterType="java.lang.String">
+        delete from r_movie_part where part_id = #{partId}
+    </delete>
+
+    <update id="updateIsGrounding" parameterType="java.util.Map">
+        update r_movie_part set IS_GROUNDING = #{isGrounding} where id in
+        <foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <select id="findPartByMovieId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT a.id, a.show_start, a.show_no, b.part_name, a.price FROM r_movie_part a JOIN movie_part b ON a.part_id = b.id WHERE a.movie_id = #{movieId} ORDER BY b.part_name, a.show_start, a.show_no
+    </select>
+
+    <select id="getOrderDataById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT  rmp.id,
+                o.order_no,
+                p.part_name,
+                p.part_remark,
+                p.image part_Image,
+                m.name movie_name,
+                m.remark movie_remark,
+                m.image movie_image,
+                rmp.show_start,
+                rmp.show_no,
+                rmp.price,
+                o.num,
+                o.total_price,
+                o.place_no
+        FROM r_movie_part rmp
+            JOIN movie_order o ON rmp.id = o.r_movie_id
+            JOIN movie m ON rmp.movie_id = m.id
+            JOIN movie_part p ON rmp.part_id = p.id
+	     where o.id = #{orderId}
+    </select>
+</mapper>
