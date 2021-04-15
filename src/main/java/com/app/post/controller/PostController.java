@@ -1,14 +1,14 @@
-package com.app.comment.controller;
+package com.app.post.controller;
 
-import com.app.comment.entity.Comment;
 import com.app.common.controller.BaseController;
+import com.app.post.entity.Post;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Scope("prototype")
-@RequestMapping("/comment")
-public class CommentController extends BaseController<Comment> {
+@RequestMapping("/post")
+public class PostController extends BaseController<Post> {
 
 }

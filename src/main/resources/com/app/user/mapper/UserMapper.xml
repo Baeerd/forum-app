@@ -1,88 +1,187 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.app.user.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.app.user.entity.User" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="sex" property="sex" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
-    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
-  </resultMap>
 
+    <resultMap id="BaseResultMap" type="com.app.user.entity.User" >
+        <!-- id -->
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <!-- 创建时间 -->
+        <result column="CREATED_DT" property="createdDt" jdbcType="TIMESTAMP" />
+        <!-- 创建人 -->
+        <result column="CREATED_BY" property="createdBy" jdbcType="VARCHAR" />
+        <!-- 用户名 -->
+        <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+        <!-- 密码 -->
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <!-- 姓名 -->
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <!-- 学号 -->
+        <result column="STUDY_CODE" property="studyCode" jdbcType="VARCHAR" />
+        <!-- 性别 -->
+        <result column="SEX" property="sex" jdbcType="VARCHAR" />
+        <!-- 年级 -->
+        <result column="LEVEL" property="level" jdbcType="VARCHAR" />
+        <!-- 专业 -->
+        <result column="subject" property="subject" jdbcType="VARCHAR" />
+        <!-- 联系方式 -->
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <!-- 头像 -->
+        <result column="portrait" property="portrait" jdbcType="VARCHAR" />
+        <!-- 简介 -->
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+    </resultMap>
 
-  <sql id="Base_Column_List" >
-    id,username,password,sex,name,created_dt,created_by
-  </sql>
+    <sql id="Base_Column_List" >
+        id,
+        CREATED_DT,
+        CREATED_BY,
+        USERNAME,
+        PASSWORD,
+        NAME,
+        STUDY_CODE,
+        SEX,
+        LEVEL,
+        subject,
+        PHONE,
+        portrait,
+        remark
+    </sql>
 
+    <select id="find" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from TABLE_USER
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                AND id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="createdDt != null" >
+                AND CREATED_DT = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                AND CREATED_BY = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="username != null" >
+                AND USERNAME = #{username,jdbcType=VARCHAR}
+            </if>
+            <if test="password != null" >
+                AND PASSWORD = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="name != null" >
+                AND NAME = #{name,jdbcType=VARCHAR}
+            </if>
+            <if test="studyCode != null" >
+                AND STUDY_CODE = #{studyCode,jdbcType=VARCHAR}
+            </if>
+            <if test="sex != null" >
+                AND SEX = #{sex,jdbcType=VARCHAR}
+            </if>
+            <if test="level != null" >
+                AND LEVEL = #{level,jdbcType=VARCHAR}
+            </if>
+            <if test="subject != null" >
+                AND subject = #{subject,jdbcType=VARCHAR}
+            </if>
+            <if test="phone != null" >
+                AND PHONE = #{phone,jdbcType=VARCHAR}
+            </if>
+            <if test="portrait != null" >
+                AND portrait = #{portrait,jdbcType=VARCHAR}
+            </if>
+            <if test="remark != null" >
+                AND remark = #{remark,jdbcType=VARCHAR}
+            </if>
+        </trim>
+        ORDER BY
+        <if test="order != null">
+        ${order}
+        </if>
+        <if test="order == null">
+            SID DESC
+        </if>
+    </select>
 
-  <insert id="insert" parameterType="com.app.user.entity.User" >
-    insert into User (username,password,
-      sex,name,created_dt,
-      created_by)
-    values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},
-      #{sex,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{createdDt,jdbcType=TIMESTAMP},
-      #{createdBy,jdbcType=VARCHAR})
-  </insert>
+    <delete id="delete" parameterType="com.app.user.entity.User" >
+        delete from TABLE_USER where SID = #{sid,jdbcType=DECIMAL}
+    </delete>
 
-  <update id="update" parameterType="com.app.user.entity.User" >
-    update User
-      <set>
-          <if test="username != null" >
-              username = #{username,jdbcType=VARCHAR},
-          </if>
-          <if test="password != null" >
-              password = #{password,jdbcType=VARCHAR},
-          </if>
-          <if test="sex != null" >
-              sex = #{sex,jdbcType=VARCHAR},
-          </if>
-          <if test="name != null" >
-              name = #{name,jdbcType=VARCHAR},
-          </if>
-          <if test="createdDt != null" >
-              created_dt = #{createdDt,jdbcType=TIMESTAMP},
-          </if>
-          <if test="createdBy != null" >
-              created_by = #{createdBy,jdbcType=VARCHAR},
-          </if>
-      </set>
-  		where id = #{id,jdbcType=BIGINT}
-  </update>
+    <insert id="insert" parameterType="com.app.user.entity.User" >
+        insert into TABLE_USER (
+           id,
+           CREATED_DT,
+           CREATED_BY,
+           USERNAME,
+           PASSWORD,
+           NAME,
+           STUDY_CODE,
+           SEX,
+           LEVEL,
+           subject,
+           PHONE,
+           portrait,
+           remark
+        )
+        values (
+            #{id,jdbcType=VARCHAR},
+            #{createdDt,jdbcType=TIMESTAMP},
+            #{createdBy,jdbcType=VARCHAR},
+            #{username,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{name,jdbcType=VARCHAR},
+            #{studyCode,jdbcType=VARCHAR},
+            #{sex,jdbcType=VARCHAR},
+            #{level,jdbcType=VARCHAR},
+            #{subject,jdbcType=VARCHAR},
+            #{phone,jdbcType=VARCHAR},
+            #{portrait,jdbcType=VARCHAR},
+            #{remark,jdbcType=VARCHAR}
+        )
+    </insert>
 
-  <delete id="delete" parameterType="com.app.user.entity.User" >
-    delete from User
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-
-  <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	select
-		<include refid="Base_Column_List" />
-	from User
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-		      <if test="id != null" >
-		        and id = #{id,jdbcType=BIGINT}
-		      </if>
-		      <if test="username != null" >
-		        and username = #{username,jdbcType=VARCHAR}
-		      </if>
-		      <if test="password != null" >
-		        and password = #{password,jdbcType=VARCHAR}
-		      </if>
-		      <if test="sex != null" >
-		        and sex = #{sex,jdbcType=VARCHAR}
-		      </if>
-		      <if test="name != null" >
-		        and name = #{name,jdbcType=VARCHAR}
-		      </if>
-		      <if test="createdDt != null" >
-		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
-		      </if>
-		      <if test="createdBy != null" >
-		        and created_by = #{createdBy,jdbcType=VARCHAR}
-		      </if>
-	      </trim>
-	order by id desc
-  </select>
+    <update id="update" parameterType="com.app.user.entity.User" >
+        update TABLE_USER set version = version + 1,
+        <trim suffixOverrides=",">
+            <if test="id != null" >
+                id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="createdDt != null" >
+                CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY = #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null" >
+                USERNAME = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="studyCode != null" >
+                STUDY_CODE = #{studyCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                SEX = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null" >
+                LEVEL = #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="subject != null" >
+                subject = #{subject,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="portrait != null" >
+                portrait = #{portrait,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null" >
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        where SID = #{sid,jdbcType=DECIMAL}
+    </update>
 </mapper>

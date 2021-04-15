@@ -1,40 +1,86 @@
 package com.app.comment.entity;
 
 import com.app.common.entity.AbstractEntity;
-
-import java.math.BigDecimal;
 import java.util.Date;
+import java.math.BigDecimal;
 
-public class Comment extends AbstractEntity{
+public class Comment extends AbstractEntity {
 
-    private String content;
+    /**
+    * 帖子id
+    */
+    private String postId;
 
-    private String level;
+    /**
+    * 评价内容
+    */
+    private String evaluateContent;
 
-    private String rMovieId;
+    /**
+    * 评价时间
+    */
+    private String evaluateDt;
 
-    public String getContent() {
-        return content;
+    /**
+    * 人员id
+    */
+    private String userId;
+
+
+    /**
+    * 获取帖子id
+    */
+    public String getPostId() {
+        return postId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    /**
+    * 设置帖子id
+    */
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
-    public String getLevel() {
-        return level;
+    /**
+    * 获取评价内容
+    */
+    public String getEvaluateContent() {
+        return evaluateContent;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    /**
+    * 设置评价内容
+    */
+    public void setEvaluateContent(String evaluateContent) {
+        this.evaluateContent = evaluateContent;
     }
 
-    public String getRMovieId() {
-        return rMovieId;
+    /**
+    * 获取评价时间
+    */
+    public String getEvaluateDt() {
+        return evaluateDt;
     }
 
-    public void setRMovieId(String rMovieId) {
-        this.rMovieId = rMovieId;
+    /**
+    * 设置评价时间
+    */
+    public void setEvaluateDt(String evaluateDt) {
+        this.evaluateDt = evaluateDt;
+    }
+
+    /**
+    * 获取人员id
+    */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+    * 设置人员id
+    */
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
 }

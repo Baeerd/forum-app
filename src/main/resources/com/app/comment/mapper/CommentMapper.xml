@@ -1,154 +1,121 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="com.app.comment.mapper.CommentMapper" >
-  <resultMap id="BaseResultMap" type="com.app.comment.entity.CommentVo" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
-    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
-    <result column="level" property="level" jdbcType="VARCHAR" />
-    <result column="r_movie_id" property="rMovieId" jdbcType="BIGINT" />
 
-    <result column="part_name" property="partName" jdbcType="VARCHAR" />
-    <result column="movie_name" property="movieName" jdbcType="VARCHAR" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.app.comment.entity.Comment" >
+        <!-- id -->
+        <result column="ID" property="id" jdbcType="VARCHAR" />
+        <!-- 创建时间 -->
+        <result column="created_dt" property="createdDt" jdbcType="TIMESTAMP" />
+        <!-- 创建人 -->
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
+        <!-- 帖子id -->
+        <result column="POST_ID" property="postId" jdbcType="VARCHAR" />
+        <!-- 评价内容 -->
+        <result column="EVALUATE_CONTENT" property="evaluateContent" jdbcType="VARCHAR" />
+        <!-- 评价时间 -->
+        <result column="EVALUATE_DT" property="evaluateDt" jdbcType="VARCHAR" />
+        <!-- 人员id -->
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    </resultMap>
 
+    <sql id="Base_Column_List" >
+        ID,
+        created_dt,
+        created_by,
+        POST_ID,
+        EVALUATE_CONTENT,
+        EVALUATE_DT,
+        user_id
+    </sql>
 
-  <sql id="Base_Column_List" >
-    id,created_dt,created_by,content,level,r_movie_id
-  </sql>
-
-
-  <insert id="insert" parameterType="com.app.comment.entity.Comment" >
-    insert into comment (created_dt,created_by,
-      content,level,r_movie_id)
-    values (#{createdDt,jdbcType=TIMESTAMP},#{createdBy,jdbcType=VARCHAR},
-      #{content,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR},#{rMovieId,jdbcType=BIGINT})
-  </insert>
-
-  <update id="update" parameterType="com.app.comment.entity.Comment" >
-    update comment
-      <set>
-          <if test="id != null" >
-              id = #{id,jdbcType=BIGINT},
-          </if>
-          <if test="createdDt != null" >
-              created_dt = #{createdDt,jdbcType=TIMESTAMP},
-          </if>
-          <if test="createdBy != null" >
-              created_by = #{createdBy,jdbcType=VARCHAR},
-          </if>
-          <if test="content != null" >
-              content = #{content,jdbcType=VARCHAR},
-          </if>
-          <if test="level != null" >
-              level = #{level,jdbcType=VARCHAR},
-          </if>
-          <if test="rMovieId != null" >
-              r_movie_id = #{rMovieId,jdbcType=BIGINT},
-          </if>
-      </set>
-  		where id = #{id,jdbcType=BIGINT}
-  </update>
-
-  <delete id="delete" parameterType="com.app.comment.entity.Comment" >
-    delete from comment
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-
-  <select id="find" parameterType="java.util.Map" resultMap="BaseResultMap">
-  	select
-		<include refid="Base_Column_List" />
-	from comment
-		<trim prefix="WHERE" prefixOverrides="AND |OR ">
-		      <if test="id != null" >
-		        and id = #{id,jdbcType=BIGINT}
-		      </if>
-		      <if test="createdDt != null" >
-		        and created_dt = #{createdDt,jdbcType=TIMESTAMP}
-		      </if>
-		      <if test="createdBy != null" >
-		        and created_by = #{createdBy,jdbcType=VARCHAR}
-		      </if>
-		      <if test="content != null" >
-		        and content = #{content,jdbcType=VARCHAR}
-		      </if>
-		      <if test="level != null" >
-		        and level = #{level,jdbcType=VARCHAR}
-		      </if>
-		      <if test="rMovieId != null" >
-		        and r_movie_id = #{rMovieId,jdbcType=BIGINT}
-		      </if>
-	      </trim>
-	order by id desc
-  </select>
-
-    <select id="findCommentList" parameterType="java.util.Map" resultMap="BaseResultMap">
-        SELECT a.*, b.part_name, b.movie_name
-        FROM COMMENT a JOIN v_movie b ON a.r_movie_id = b.id
+    <select id="find" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List" />
+        from TABLE_COMMENT
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null" >
-                and a.id = #{id,jdbcType=BIGINT}
+                AND ID = #{id,jdbcType=VARCHAR}
             </if>
             <if test="createdDt != null" >
-                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+                AND created_dt = #{createdDt,jdbcType=TIMESTAMP}
             </if>
             <if test="createdBy != null" >
-                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+                AND created_by = #{createdBy,jdbcType=VARCHAR}
             </if>
-            <if test="content != null" >
-                and a.content like '%${content}%'
+            <if test="postId != null" >
+                AND POST_ID = #{postId,jdbcType=VARCHAR}
             </if>
-            <if test="level != null" >
-                and a.level = #{level,jdbcType=VARCHAR}
+            <if test="evaluateContent != null" >
+                AND EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR}
             </if>
-            <if test="rMovieId != null" >
-                and a.r_movie_id = #{rMovieId,jdbcType=BIGINT}
+            <if test="evaluateDt != null" >
+                AND EVALUATE_DT = #{evaluateDt,jdbcType=VARCHAR}
             </if>
-            <if test="partName != null" >
-                and b.part_name like '%${partName}%'
-            </if>
-            <if test="movieName != null" >
-                and b.movie_name like '%${movieName}%'
-            </if>
-            <if test="commentSearch != null">
-                and (a.content like '%${commentSearch}%' or b.part_name like '%${commentSearch}%' or b.movie_name like '%${commentSearch}%')
+            <if test="userId != null" >
+                AND user_id = #{userId,jdbcType=VARCHAR}
             </if>
         </trim>
-        order by id desc
+        ORDER BY
+        <if test="order != null">
+        ${order}
+        </if>
+        <if test="order == null">
+            SID DESC
+        </if>
     </select>
 
-    <select id="findCommentListCount" parameterType="java.util.Map" resultType="java.lang.Integer">
-        SELECT count(0)
-        FROM COMMENT a JOIN v_movie b ON a.r_movie_id = b.id
-        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+    <delete id="delete" parameterType="com.app.comment.entity.Comment" >
+        delete from TABLE_COMMENT where SID = #{sid,jdbcType=DECIMAL}
+    </delete>
+
+    <insert id="insert" parameterType="com.app.comment.entity.Comment" >
+        insert into TABLE_COMMENT (
+           ID,
+           created_dt,
+           created_by,
+           POST_ID,
+           EVALUATE_CONTENT,
+           EVALUATE_DT,
+           user_id
+        )
+        values (
+            #{id,jdbcType=VARCHAR},
+            #{createdDt,jdbcType=TIMESTAMP},
+            #{createdBy,jdbcType=VARCHAR},
+            #{postId,jdbcType=VARCHAR},
+            #{evaluateContent,jdbcType=VARCHAR},
+            #{evaluateDt,jdbcType=VARCHAR},
+            #{userId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.app.comment.entity.Comment" >
+        update TABLE_COMMENT set version = version + 1,
+        <trim suffixOverrides=",">
             <if test="id != null" >
-                and a.id = #{id,jdbcType=BIGINT}
+                ID = #{id,jdbcType=VARCHAR},
             </if>
             <if test="createdDt != null" >
-                and a.created_dt = #{createdDt,jdbcType=TIMESTAMP}
+                created_dt = #{createdDt,jdbcType=TIMESTAMP},
             </if>
             <if test="createdBy != null" >
-                and a.created_by = #{createdBy,jdbcType=VARCHAR}
+                created_by = #{createdBy,jdbcType=VARCHAR},
             </if>
-            <if test="content != null" >
-                and a.content like '%${content}%'
+            <if test="postId != null" >
+                POST_ID = #{postId,jdbcType=VARCHAR},
             </if>
-            <if test="level != null" >
-                and a.level = #{level,jdbcType=VARCHAR}
+            <if test="evaluateContent != null" >
+                EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR},
             </if>
-            <if test="rMovieId != null" >
-                and a.r_movie_id = #{rMovieId,jdbcType=BIGINT}
+            <if test="evaluateDt != null" >
+                EVALUATE_DT = #{evaluateDt,jdbcType=VARCHAR},
             </if>
-            <if test="partName != null" >
-                and b.part_name like '%${partName}%'
-            </if>
-            <if test="movieName != null" >
-                and b.movie_name like '%${movieName}%'
-            </if>
-            <if test="commentSearch != null">
-                and (a.content like '%${commentSearch}%' or b.part_name like '%${commentSearch}%' or b.movie_name like '%${commentSearch}%')
+            <if test="userId != null" >
+                user_id = #{userId,jdbcType=VARCHAR},
             </if>
         </trim>
-    </select>
+        where SID = #{sid,jdbcType=DECIMAL}
+    </update>
 </mapper>
