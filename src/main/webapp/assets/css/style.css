@@ -610,6 +610,11 @@ h5.left-nav-title {
 	margin-right: 15px;
 }
 
+.menu-left {
+	float: left;
+	margin-left: 15px;
+}
+
 .notification-menu {
 	list-style: none;
 }
@@ -998,7 +1003,7 @@ h5.left-nav-title {
 .sticky-header .header-section {
 	position: fixed;
 	top: 0;
-	left: 240px;
+	left: 0px;
 	width: 100%;
 	z-index: 100;
 }
@@ -1008,7 +1013,7 @@ h5.left-nav-title {
 }
 
 .sticky-header .menu-right {
-	margin-right: 255px;
+	margin-right: 0px;
 }
 
 .sticky-header.left-side-collapsed .header-section {
@@ -1041,7 +1046,7 @@ h5.left-nav-title {
 
 
 .main-content {
-	margin-left: 240px;
+	margin-left: 0px;
 	background: #ECECED;
 }
 
@@ -1619,8 +1624,15 @@ table.dataTable thead th, table.dataTable thead td {
 }
 
 .table > thead > tr > th{
+	text-align: center;
 	color: #6b6a6a;
 	font-weight: 600;
+	font-size: 14px;
+}
+
+.table > tbody > tr > td{
+	text-align: center;
+	font-weight: 400;
 	font-size: 14px;
 }
 

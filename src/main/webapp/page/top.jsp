@@ -3,7 +3,9 @@
 <script src="/js/plugin.js"></script>
 <div class="header-section">
 
-    <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+    <div class="menu-left">
+        <h4 align="center">校内考研互助系统</h4>
+    </div>
 
     <!--notification menu start -->
     <div class="menu-right">

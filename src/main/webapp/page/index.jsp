@@ -16,9 +16,6 @@
 
 <body class="sticky-header">
 
-    <!-- 菜单 -->
-    <%@include file="menu.jsp"%>
-
 <!-- main content start-->
 <div class="main-content" >
 
@@ -28,37 +25,52 @@
     <!--body wrapper start-->
     <div class="wrapper">
 
-        <!--Start Page Title-->
-        <div class="page-title-box">
-            <h4 class="page-title">影视信息系统</h4>
-            <div class="clearfix"></div>
-        </div>
-        <!--End Page Title-->
-
-
         <!--Start row-->
         <div class="row">
-            <div class="panel-wrap">
+            <div class="col-md-12">
+                <div class="white-box">
 
-                <c:forEach items="${indexMovieList }" var="movie">
-
-                    <div class="col-md-4">
-                        <div class="panel panel-color  panel-info" onclick="selectPanel(this, ${movie.id});"> <!-- panel-purple -->
-                            <div class="panel-heading">
-                                <h3 class="panel-title">${movie.name}</h3>
-                            </div>
-                            <div class="panel-body" align="center">
-                                <img src="${movie.image}" width="300" height="200">
-                                <p/>
-                                <p>
-                                    ${movie.remark}
-                                </p>
-                            </div>
-                        </div>
+                    <div class="search-box-top">
+                        <form action="/">
+                            <input type="hidden" name="pageNum"/>
+                            <input type="hidden" name="pageSize"/>
+                            <div class="input-group">
+                                <input name="commentSearch" class="form-control input-search" placeholder="搜索..." type="text" value="${commentSearch}">
+                                <span class="input-group-btn">
+                                  <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                                  </span> </div>
+                        </form>
                     </div>
+                    <div class="search-item">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th width="60%">标题</th>
+                                <th width="20%">作者</th>
+                                <th width="10%">浏览次数</th>
+                                <th width="10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${page.list}" var="post">
+                                    <tr>
+                                        <td>${post.postTitle}</td>
+                                        <td>${post.createdBy}</td>
+                                        <td>${post.browseCount}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-danger round" style="font-size: 10px;padding: 4px 12px;" onclick="deleteComment(${post.id});">
+                                                <span class="btn-label"><i class="fa fa-times"></i></span>删除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 分页 -->
+                    <%@include file="./pageInfo.jsp"%>
 
-                </c:forEach>
-
+                </div>
             </div>
         </div>
         <!--End row-->
