@@ -26,7 +26,7 @@
                         <img src="/assets/images/logo-dark.png"  alt="logo"/>
                     </div>
                     <br/><br/>
-                    <h2 class="header2-title text-center">影视信息系统</h2>
+                    <h2 class="header2-title text-center">校内考研互助系统</h2>
 
                     <span><font color="red">${msg}</font></span>
                     <span><font color="red">${error}</font></span>
@@ -34,7 +34,7 @@
                     <form action="/system/login">
                         <div class="login-group">
 
-                            <input type="text" class="form-control" name="username" placeholder="用户名" value="${user.username}">
+                            <input type="text" class="form-control" name="username" placeholder="用户名" value="${ username}">
                         </div>
                         <br/><br/><br/>
 
@@ -53,11 +53,14 @@
                         <div class="login-group text-center">
                             没有账号?  <a href="/regist.html">点击注册 </a>
                         </div>
+                        <div class="login-group text-center">
+                            <a href="/">直接访问 </a>
+                        </div>
 
                     </form>
 
                     <div class="copy-text">
-                        <p class="m-0">2019 &copy; 影视信息系统</p>
+                        <p class="m-0">2021 &copy; 校内考研互助系统</p>
                     </div>
 
                 </div>

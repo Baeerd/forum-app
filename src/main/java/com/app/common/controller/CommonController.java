@@ -49,6 +49,7 @@ public class CommonController extends BaseController<AbstractEntity>{
         }
         // 首页默认查询帖子信息
         PageModel<Post> page = postService.findByPage(params);
+        model.addAttribute("postSearch", params.get("postSearch"));
         model.addAttribute("page", page);
         return appConfig.getIndex();
     }

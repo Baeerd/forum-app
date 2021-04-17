@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="/js/plugin.js"></script>
 <div class="header-section">
@@ -26,7 +26,8 @@
                         <li class="notification-scroll-list notification-list ">
                             <c:forEach items="${userOrderList}" var="order">
                                 <!-- list item-->
-                                <a href="javascript:window.location='/order/orderDetail?id=${order.id}';" class="list-group-item">
+                                <a href="javascript:window.location='/order/orderDetail?id=${order.id}';"
+                                   class="list-group-item">
                                     <div class="media">
                                         <div class="pull-left p-r-10">
                                             <img src="${order.image}" width="50" height="50"/>
@@ -64,23 +65,46 @@
                                 </a>
                             </c:forEach>
                         </li>
-                        <li class="last"> <a href="/order/orderList">查看全部订单</a> </li>
+                        <li class="last"><a href="/order/orderList">查看全部订单</a></li>
                     </ul>
                 </div>
             </li>
 
             <li>
-                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <img src="/assets/images/userLogo.jpg" alt="" />
-                    ${loginUser.name}
-                    <span class="caret"></span>
+                <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                   onclick="window.location='/';">
+                    <img src="/image/index/home.png"/>
+                    主页
                 </a>
-                <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                    <li> <a href="/order/orderList"> <i class="fa fa-user"></i> 我的订单 </a> </li>
-                    <li> <a href="/comment/commentList"> <i class="fa fa-info"></i> 我的评论 </a> </li>
-                    <li> <a href="/system/logout"> <i class="fa fa-lock"></i> 注销 </a> </li>
-                </ul>
             </li>
+
+            <c:choose>
+                <c:when test="${loginUser == null}">
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                           onclick="window.location='/login.html';">
+                            <img src="/image/index/login.png"/>
+                            登录
+                        </a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li>
+                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <img src="/assets/images/userLogo.jpg" alt=""/>
+                                ${loginUser.name}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            <li><a href="/?postSearch=${loginUser.name}"> <i class="fa fa-user"></i> 个人信息 </a></li>
+                            <li><a href="/?postSearch=${loginUser.name}"> <i class="fa fa-info"></i> 我的帖子 </a></li>
+                            <li><a href="/comment/commentList"> <i class="fa fa-info"></i> 我的评论 </a></li>
+                            <li><a href="/system/logout"> <i class="fa fa-lock"></i> 注销 </a></li>
+                        </ul>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+
 
         </ul>
     </div>

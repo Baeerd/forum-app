@@ -15,7 +15,7 @@ public class LoginUtil {
 
     public static final String LOGINPAGE = "/login.html";
 
-    private static String interceptorPath;
+    private static String interceptorPath="/";;
 
     private static Logger log = LoggerFactory.getLogger(LoginUtil.class);
 

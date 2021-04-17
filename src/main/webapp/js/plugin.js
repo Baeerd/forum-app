@@ -127,7 +127,7 @@ function initSelectClassListener() {
             jsonResultList = eval('('+jsonResultList+')');
             var result = "";
             // 将返回的数据设置到下拉框中
-            for(var i in jsonResultList) {
+            for(var i=0; i<jsonResultList.length; i++) {
                 var jsonResult = jsonResultList[i];
                 // name为option的值，value为option的value
                 result += templet.replaceAll("#name", jsonResult['name']).replaceAll("#value", jsonResult['value']);

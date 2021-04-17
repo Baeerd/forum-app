@@ -35,7 +35,8 @@ public class Post extends AbstractEntity {
     * 是否精品
     */
     private String boutique;
-
+    
+    private String name;
 
     /**
     * 获取帖子id
@@ -121,4 +122,11 @@ public class Post extends AbstractEntity {
         this.boutique = boutique;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

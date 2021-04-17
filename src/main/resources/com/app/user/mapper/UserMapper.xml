@@ -98,12 +98,12 @@
         ${order}
         </if>
         <if test="order == null">
-            SID DESC
+            ID DESC
         </if>
     </select>
 
     <delete id="delete" parameterType="com.app.user.entity.User" >
-        delete from TABLE_USER where SID = #{sid,jdbcType=DECIMAL}
+        delete from TABLE_USER where ID = #{id,jdbcType=DECIMAL}
     </delete>
 
     <insert id="insert" parameterType="com.app.user.entity.User" >
@@ -140,7 +140,7 @@
     </insert>
 
     <update id="update" parameterType="com.app.user.entity.User" >
-        update TABLE_USER set version = version + 1,
+        update TABLE_USER set
         <trim suffixOverrides=",">
             <if test="id != null" >
                 id = #{id,jdbcType=VARCHAR},
@@ -182,6 +182,6 @@
                 remark = #{remark,jdbcType=VARCHAR},
             </if>
         </trim>
-        where SID = #{sid,jdbcType=DECIMAL}
+        where ID = #{id,jdbcType=DECIMAL}
     </update>
 </mapper>

@@ -22,6 +22,7 @@
         <result column="browse_COUNT" property="browseCount" jdbcType="DECIMAL" />
         <!-- 是否精品 -->
         <result column="Boutique" property="boutique" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
@@ -33,16 +34,23 @@
         POST_CONTENT,
         POST_FILE,
         browse_COUNT,
-        Boutique
+        Boutique,
+        NAME
     </sql>
 
     <select id="find" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List" />
-        from TABLE_POST
+        from VIEW_POST
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="postSearch != null" >
+                AND (
+                POST_TITLE like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
+                OR CREATED_BY like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
+                )
+            </if>
             <if test="id != null" >
-                AND id = #{id,jdbcType=VARCHAR}
+                AND id = #{id,jdbcType=VARCHAR} 
             </if>
             <if test="createdDt != null" >
                 AND CREATED_DT = #{createdDt,jdbcType=TIMESTAMP}
@@ -114,7 +122,7 @@
     </select>
 
     <delete id="delete" parameterType="com.app.post.entity.Post" >
-        delete from TABLE_POST where SID = #{sid,jdbcType=DECIMAL}
+        delete from TABLE_POST where ID = #{id,jdbcType=DECIMAL}
     </delete>
 
     <insert id="insert" parameterType="com.app.post.entity.Post" >
@@ -143,7 +151,7 @@
     </insert>
 
     <update id="update" parameterType="com.app.post.entity.Post" >
-        update TABLE_POST set version = version + 1,
+        update TABLE_POST set 
         <trim suffixOverrides=",">
             <if test="id != null" >
                 id = #{id,jdbcType=VARCHAR},
@@ -173,6 +181,6 @@
                 Boutique = #{boutique,jdbcType=VARCHAR},
             </if>
         </trim>
-        where SID = #{sid,jdbcType=DECIMAL}
+        where ID = #{id,jdbcType=DECIMAL}
     </update>
 </mapper>
