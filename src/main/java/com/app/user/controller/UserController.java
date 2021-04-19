@@ -7,16 +7,24 @@ import com.app.common.entity.Response;
 import com.app.common.exception.MessageException;
 import com.app.common.util.LoginUtil;
 import com.app.common.util.Util;
+import com.app.post.entity.Post;
+import com.app.post.service.PostService;
 import com.app.user.entity.User;
 import com.app.user.service.UserService;
 import com.github.pagehelper.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +42,7 @@ public class UserController extends BaseController<User> {
 
     @Autowired
     private UserService userService;
-
+    
     @RequestMapping("/login")
     public void login(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String json = getJsonFromRequest(request);
@@ -115,7 +123,30 @@ public class UserController extends BaseController<User> {
         return modelAndView;
     }
 
+    @RequestMapping("/userDetail")
+    public ModelAndView userDetail(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("/user/userDetail");
+        Map<String, String> params = new HashMap<>();
+        if(null!=request){
+            String jsonFromRequest = super.getJsonFromRequest(request);
+            params = Util.jsonToMap(jsonFromRequest);
+        }
+        // 首页默认查询帖子信息
+        List<User> userList = userService.findByParam(params);
+        mv.addObject("user", userList.get(0));
+        return mv;
+    }
 
+    @RequestMapping(value="/updateUser", consumes="multipart/form-data", method=RequestMethod.POST)
+    public void updateUser(HttpServletRequest request, HttpServletResponse response, User user,
+                                   @RequestParam(value ="file", required = false) MultipartFile file) {
+        userService.updateUser(request, user, file);
+        try {
+            response.sendRedirect("/system/userDetail?username="+user.getUsername());
+        } catch (IOException e) {
+            throw new MessageException(e.getMessage());
+        }
+    }
 
     @RequestMapping("/registVip")
     public ModelAndView registVip(HttpServletRequest request) {

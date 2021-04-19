@@ -2499,8 +2499,19 @@ ul.doughnut-legend li span {
 
 .form-group{
 	float:left;
-	width:33%;
+	width:50%;
 }
+
+.form-group1{
+	float:left;
+	width:20%;
+}
+
+.form-group2{
+	float:right;
+	width:80%;
+}
+
 .login-group{
 	float:left;
 	width:100%;

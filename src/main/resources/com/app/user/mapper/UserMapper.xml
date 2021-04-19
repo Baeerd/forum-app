@@ -30,6 +30,12 @@
         <result column="portrait" property="portrait" jdbcType="VARCHAR" />
         <!-- 简介 -->
         <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <!-- 角色 -->
+        <result column="role" property="role" jdbcType="VARCHAR" />
+
+        <result column="roleView" property="roleView" jdbcType="VARCHAR" />
+        <result column="sexView" property="sexView" jdbcType="VARCHAR" />
+        <result column="levelView" property="levelView" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
@@ -45,13 +51,17 @@
         subject,
         PHONE,
         portrait,
-        remark
+        remark,
+        role,
+        roleView,
+        sexView,
+        levelView
     </sql>
 
     <select id="find" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List" />
-        from TABLE_USER
+        from VIEW_USER
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="id != null" >
                 AND id = #{id,jdbcType=VARCHAR}
@@ -92,6 +102,9 @@
             <if test="remark != null" >
                 AND remark = #{remark,jdbcType=VARCHAR}
             </if>
+            <if test="role != null" >
+                AND role = #{role,jdbcType=VARCHAR}
+            </if>
         </trim>
         ORDER BY
         <if test="order != null">
@@ -120,7 +133,8 @@
            subject,
            PHONE,
            portrait,
-           remark
+           remark,
+           role
         )
         values (
             #{id,jdbcType=VARCHAR},
@@ -135,7 +149,8 @@
             #{subject,jdbcType=VARCHAR},
             #{phone,jdbcType=VARCHAR},
             #{portrait,jdbcType=VARCHAR},
-            #{remark,jdbcType=VARCHAR}
+            #{remark,jdbcType=VARCHAR},
+            #{role,jdbcType=VARCHAR}
         )
     </insert>
 
@@ -180,6 +195,9 @@
             </if>
             <if test="remark != null" >
                 remark = #{remark,jdbcType=VARCHAR},
+            </if>
+            <if test="role != null" >
+                role = #{role,jdbcType=VARCHAR},
             </if>
         </trim>
         where ID = #{id,jdbcType=DECIMAL}

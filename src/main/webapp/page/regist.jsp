@@ -61,7 +61,7 @@
                         <br/><br/>
 
                         <div class="login-group">
-                            <select class="form-control initSelect requireField" typeId="role" name="sex" onchange="roleChange(this.value);">
+                            <select class="form-control initSelect requireField" typeId="role" name="role" onchange="roleChange(this.value);">
                                 <option value="#value">#name</option>
                             </select>
                         </div>

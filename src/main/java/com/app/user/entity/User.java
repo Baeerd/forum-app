@@ -1,6 +1,8 @@
 package com.app.user.entity;
 
 import com.app.common.entity.AbstractEntity;
+import org.apache.commons.lang.StringUtils;
+
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -56,6 +58,16 @@ public class User extends AbstractEntity {
     */
     private String remark;
 
+    /**
+     * 角色
+     */
+    private String role;
+    
+    private String roleView;
+    
+    private String sexView;
+    
+    private String levelView;
 
     /**
     * 获取用户名
@@ -197,4 +209,45 @@ public class User extends AbstractEntity {
         this.remark = remark;
     }
 
+    /**
+     * 获取角色
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * 设置角色
+     */
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRoleView() {
+        if(StringUtils.isEmpty(this.roleView)) {
+            return  "管理员";
+        } else {
+            return roleView;
+        }
+    }
+
+    public void setRoleView(String roleView) {
+        this.roleView = roleView;
+    }
+
+    public String getSexView() {
+        return sexView;
+    }
+
+    public void setSexView(String sexView) {
+        this.sexView = sexView;
+    }
+
+    public String getLevelView() {
+        return levelView;
+    }
+
+    public void setLevelView(String levelView) {
+        this.levelView = levelView;
+    }
 }

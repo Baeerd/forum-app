@@ -9,6 +9,16 @@ CREATE TABLE DATA_CONFIG  (
   PRIMARY KEY (ID)
 );
 
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (1, '2021-04-17 09:04:33', 'admin', '男', '1', 'sex');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (2, '2021-04-17 09:04:33', 'admin', '女', '0', 'sex');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (3, '2021-04-17 09:04:33', 'admin', '大一', '1', 'level');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (4, '2021-04-17 09:04:33', 'admin', '大二', '2', 'level');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (5, '2021-04-17 09:04:33', 'admin', '大三', '3', 'level');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (6, '2021-04-17 09:04:33', 'admin', '大四', '4', 'level');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (7, '2021-04-17 09:04:33', 'admin', '准毕业生', '1', 'role');
+INSERT INTO `forum-app`.`DATA_CONFIG`(`ID`, `CREATED_DT`, `CREATED_BY`, `NAME`, `VALUE`, `TYPE_ID`) VALUES (8, '2021-04-17 09:04:33', 'admin', '校友', '2', 'role');
+
+
 DROP TABLE IF EXISTS TABLE_COMMENT;
 CREATE TABLE TABLE_COMMENT  (
   ID bigint NOT NULL AUTO_INCREMENT,
@@ -41,14 +51,6 @@ INSERT INTO TABLE_POST(id, CREATED_DT, CREATED_BY, POST_CODE, POST_TITLE, POST_C
 create or REPLACE view VIEW_POST as 
 SELECT p.*, u.name from TABLE_POST p left join TABLE_USER u on p.CREATED_BY = u.USERNAME;
 
-DROP TABLE IF EXISTS TABLE_ROLE;
-CREATE TABLE TABLE_ROLE  (
-  ID bigint NOT NULL AUTO_INCREMENT,
-  ROLE_ID int NULL COMMENT '角色ID',
-  ROLE_DESC varchar(128) NULL COMMENT '角色描述',
-  PRIMARY KEY (ID)
-);
-
 DROP TABLE IF EXISTS TABLE_USER;
 CREATE TABLE TABLE_USER  (
   id bigint NOT NULL AUTO_INCREMENT,
@@ -64,16 +66,15 @@ CREATE TABLE TABLE_USER  (
   PHONE varchar(50) NULL COMMENT '联系方式',
   portrait varchar(50) NULL COMMENT '头像',
   remark varchar(255) NULL COMMENT '简介',
+  role varchar(1) NULL COMMENT '角色',
   PRIMARY KEY (id)
 );
 
-INSERT INTO `forum-app`.`TABLE_USER`(`id`, `CREATED_DT`, `CREATED_BY`, `USERNAME`, `PASSWORD`, `NAME`, `STUDY_CODE`, `SEX`, `LEVEL`, `subject`, `PHONE`, `portrait`, `remark`) VALUES (1, '2021-04-16 16:45:33', 'admin', 'admin', '123', '管理员', NULL, NULL, NULL, NULL, '88888888', NULL, '系统管理员');
+INSERT INTO `forum-app`.`TABLE_USER`(`id`, `CREATED_DT`, `CREATED_BY`, `USERNAME`, `PASSWORD`, `NAME`, `STUDY_CODE`, `SEX`, `LEVEL`, `subject`, `PHONE`, `portrait`, `remark`, `role`) VALUES (1, '2021-04-16 16:45:33', 'admin', 'admin', '123', '管理员', 'xxxxxxxx', '1', '1', 'xx专业', '88888888', NULL, '系统管理员', '0');
 
-DROP TABLE IF EXISTS TABLE_USER_ROLE;
-CREATE TABLE TABLE_USER_ROLE  (
-  ID bigint NOT NULL AUTO_INCREMENT,
-  user_id bigint NULL COMMENT '人员ID',
-  ROLE_ID bigint NULL COMMENT '角色ID',
-  PRIMARY KEY (ID)
-);
-
+create or REPLACE view VIEW_USER as
+SELECT u.*,
+(SELECT c.NAME from DATA_CONFIG c where c.VALUE = u.sex and c.TYPE_ID = 'sex') as sexView,
+(SELECT c.NAME from DATA_CONFIG c where c.VALUE = u.LEVEL and c.TYPE_ID = 'level') as levelView,
+(SELECT c.NAME from DATA_CONFIG c where c.VALUE = u.role and c.TYPE_ID = 'role') as roleView
+ from TABLE_USER u;

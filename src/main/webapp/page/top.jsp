@@ -91,12 +91,19 @@
                 <c:otherwise>
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <img src="/assets/images/userLogo.jpg" alt=""/>
+                            <c:choose>
+                                <c:when test="${loginUser.portrait != null}">
+                                    <img src="${loginUser.portrait}" alt=""/>
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="/image/index/portrait.png" alt=""/>
+                                </c:otherwise>
+                            </c:choose>
                                 ${loginUser.name}
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <li><a href="/?postSearch=${loginUser.name}"> <i class="fa fa-user"></i> 个人信息 </a></li>
+                            <li><a href="/system/userDetail?username=${loginUser.username}"> <i class="fa fa-user"></i> 个人信息 </a></li>
                             <li><a href="/?postSearch=${loginUser.name}"> <i class="fa fa-info"></i> 我的帖子 </a></li>
                             <li><a href="/comment/commentList"> <i class="fa fa-info"></i> 我的评论 </a></li>
                             <li><a href="/system/logout"> <i class="fa fa-lock"></i> 注销 </a></li>
