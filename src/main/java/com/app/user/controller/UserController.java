@@ -38,9 +38,6 @@ import java.util.Map;
 public class UserController extends BaseController<User> {
 
     @Autowired
-    private AppConfig appConfig;
-
-    @Autowired
     private UserService userService;
     
     @RequestMapping("/login")
@@ -54,20 +51,6 @@ public class UserController extends BaseController<User> {
             LoginUtil.login(user);
             // 向session中放入用户信息
             request.getSession().setAttribute(LoginUtil.LOGINUSER, user);
-//            // 向session中放入购物车信息
-//            Map<String, String> carParams = new HashMap<>();
-//            carParams.put("userId", LoginUtil.getUserId());
-//            List<ShoppingCar> cars = shoppingCarService.findByParam(carParams);
-//            request.getSession().setAttribute("cars", cars);
-//            // 向session中放入订单信息
-//            Map<String, String> orderParams = new HashMap<>();
-//            carParams.put("userId", LoginUtil.getUserId());
-//            List<GoodsOrder> orders = goodsOrderService.findByParam(orderParams);
-//            request.getSession().setAttribute("orders", orders);
-//            // 向session中放入最新的商铺商品信息
-//            // 加载商铺商品信息
-//            List<ShopsGoodsVo> sgvList = shopsService.findNewShopsVal(4);
-//            request.getSession().setAttribute("sgvList", sgvList);
             response.sendRedirect(LoginUtil.getInterceptorPath());
         } catch (MessageException e) {
             request.getSession().setAttribute("username", params.get("username"));
@@ -146,102 +129,6 @@ public class UserController extends BaseController<User> {
         } catch (IOException e) {
             throw new MessageException(e.getMessage());
         }
-    }
-
-    @RequestMapping("/registVip")
-    public ModelAndView registVip(HttpServletRequest request) {
-
-        ModelAndView mv = new ModelAndView("/user/registVip");
-        Map<String,String> params = new HashMap<>();
-        params.put("id",request.getParameter("id"));
-        User user = userService.findByParam(params).get(0);
-        mv.addObject(user);
-        return mv;
-
-    }
-
-    @RequestMapping("/registVipMain")
-    public ModelAndView registVipMain(HttpServletRequest request) {
-
-        ModelAndView mv = new ModelAndView("/user/registVip");
-        String json = this.getJsonFromRequest(request);
-        User user = Util.jsonToBean(json, User.class);
-        mv.addObject(user);
-
-        if(StringUtil.isEmpty(user.getPhone())){
-            //手机号不能为空
-            mv.addObject("msg","注册会员信息中手机号不能为空！");
-            return mv;
-        }
-        Map<String,String> params = new HashMap<>();
-        params.put("phone",user.getPhone());
-        List<User> userList = userService.findByParam(params);
-        if (userList==null||userList.isEmpty()){
-            //数据库中无此手机号，允许注册
-            userService.update(user);
-            mv.addObject("msg","注册会员信息已成功提交，请耐心等待审核！");
-            return mv;
-        }else{
-            mv.addObject("msg",user.getPhone()+" 此手机号已被注册，请查证！");
-            return mv;
-        }
-
-    }
-
-
-    @RequestMapping("/registSeller")
-    public ModelAndView registSeller(HttpServletRequest request) {
-
-        ModelAndView mv = new ModelAndView("/user/registSeller");
-        Map<String,String> params = new HashMap<>();
-        params.put("id",request.getParameter("id"));
-        User user = userService.findByParam(params).get(0);
-        mv.addObject(user);
-        return mv;
-
-    }
-
-    @RequestMapping("/registSellerMain")
-    public ModelAndView registSellerMain(HttpServletRequest request) {
-
-        ModelAndView mv = new ModelAndView("/user/registSeller");
-        String json = this.getJsonFromRequest(request);
-        User user = Util.jsonToBean(json, User.class);
-        mv.addObject(user);
-
-        if(StringUtil.isEmpty(user.getPhone())){
-            //手机号不能为空
-            mv.addObject("msg","注册商家信息中手机号不能为空！");
-            return mv;
-        }
-        Map<String,String> params = new HashMap<>();
-        params.put("phone",user.getPhone());
-        List<User> userList = userService.findByParam(params);
-        if (userList==null||userList.isEmpty()){
-            //数据库中无此手机号，允许注册
-            userService.update(user);
-            mv.addObject("msg","注册商家信息已成功提交，请耐心等待审核！");
-            return mv;
-        }else{
-            mv.addObject("msg",user.getPhone()+" 此手机号已被注册，请查证！");
-            return mv;
-        }
-
-    }
-
-
-    @RequestMapping("/userList")
-    public ModelAndView userList(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView("/user/userList");
-        Map<String, String> params = new HashMap<>();
-        if(request != null) {
-            String json = super.getJsonFromRequest(request);
-            params = Util.jsonToMap(json);
-        }
-        PageModel<User> page = userService.findByPage(params);
-        modelAndView.addObject("page", page);
-        modelAndView.addObject("userName", params.get("username"));
-        return modelAndView;
     }
 
 }

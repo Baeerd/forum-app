@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS DATA_CONFIG;
-CREATE TABLE DATA_CONFIG  (
+CREATE TABLE DATA_CONFIG (
   ID bigint NOT NULL AUTO_INCREMENT,
   CREATED_DT datetime NULL,
   CREATED_BY varchar(32) NULL,
@@ -70,7 +70,7 @@ CREATE TABLE TABLE_USER  (
   PRIMARY KEY (id)
 );
 
-INSERT INTO `forum-app`.`TABLE_USER`(`id`, `CREATED_DT`, `CREATED_BY`, `USERNAME`, `PASSWORD`, `NAME`, `STUDY_CODE`, `SEX`, `LEVEL`, `subject`, `PHONE`, `portrait`, `remark`, `role`) VALUES (1, '2021-04-16 16:45:33', 'admin', 'admin', '123', '管理员', 'xxxxxxxx', '1', '1', 'xx专业', '88888888', NULL, '系统管理员', '0');
+INSERT INTO `forum-app`.`TABLE_USER`(`id`, `CREATED_DT`, `CREATED_BY`, `USERNAME`, `PASSWORD`, `NAME`, `STUDY_CODE`, `SEX`, `LEVEL`, `subject`, `PHONE`, `portrait`, `remark`, `role`) VALUES (1, '2021-04-19 09:11:40', 'admin', 'admin', '123', '管理员', 'xxxxxxxx', '1', '1', 'xx专业', '88888888', '/image/user/admin.png', '系统管理员', '0');
 
 create or REPLACE view VIEW_USER as
 SELECT u.*,

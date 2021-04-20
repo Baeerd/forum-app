@@ -3,7 +3,6 @@ package com.app.post.controller;
 import com.app.common.controller.BaseController;
 import com.app.common.entity.PageModel;
 import com.app.common.util.Util;
-import com.app.part.entity.MoviePart;
 import com.app.post.entity.Post;
 import com.app.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,12 @@ public class PostController extends BaseController<Post> {
         modelAndView.addObject("partName", param.get("partName"));
         modelAndView.addObject("page", page);
         return modelAndView;
+    }
+    
+    @RequestMapping("/postDetail")
+    public ModelAndView postDetail(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("/post/postDetail");
+        return mv;
     }
     
 }
