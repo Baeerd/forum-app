@@ -48,9 +48,6 @@ CREATE TABLE TABLE_POST  (
 INSERT INTO TABLE_POST(id, CREATED_DT, CREATED_BY, POST_CODE, POST_TITLE, POST_CONTENT, POST_FILE, browse_COUNT, Boutique) VALUES (1, '2021-04-16 10:11:02', 'admin', '111', '测试标题111', '测试内容111', '111.zip', 0, NULL);
 INSERT INTO TABLE_POST(id, CREATED_DT, CREATED_BY, POST_CODE, POST_TITLE, POST_CONTENT, POST_FILE, browse_COUNT, Boutique) VALUES (2, '2021-04-16 10:11:11', 'admin', '222', '测试标题222', '测试内容222', '222.zip', 0, NULL);
 
-create or REPLACE view VIEW_POST as 
-SELECT p.*, u.name from TABLE_POST p left join TABLE_USER u on p.CREATED_BY = u.USERNAME;
-
 DROP TABLE IF EXISTS TABLE_USER;
 CREATE TABLE TABLE_USER  (
   id bigint NOT NULL AUTO_INCREMENT,
@@ -71,6 +68,9 @@ CREATE TABLE TABLE_USER  (
 );
 
 INSERT INTO `forum-app`.`TABLE_USER`(`id`, `CREATED_DT`, `CREATED_BY`, `USERNAME`, `PASSWORD`, `NAME`, `STUDY_CODE`, `SEX`, `LEVEL`, `subject`, `PHONE`, `portrait`, `remark`, `role`) VALUES (1, '2021-04-19 09:11:40', 'admin', 'admin', '123', '管理员', 'xxxxxxxx', '1', '1', 'xx专业', '88888888', '/image/user/admin.png', '系统管理员', '0');
+
+create or REPLACE view VIEW_POST as 
+SELECT p.*, u.name from TABLE_POST p left join TABLE_USER u on p.CREATED_BY = u.USERNAME;
 
 create or REPLACE view VIEW_USER as
 SELECT u.*,

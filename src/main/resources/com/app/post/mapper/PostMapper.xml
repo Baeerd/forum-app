@@ -46,7 +46,7 @@
             <if test="postSearch != null" >
                 AND (
                 POST_TITLE like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
-                OR CREATED_BY like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
+                OR NAME like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
                 )
             </if>
             <if test="id != null" >

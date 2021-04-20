@@ -29,32 +29,39 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="white-box">
+                    <h1 align="center">${post.postTitle}</h1>
+                    <h5 align="right">发表人：${post.createdBy}</h5>
+                    <h5 align="right">发表时间：${post.createdDt}</h5>
 
-                    <form action="/post/addOrUpdatePost" method="post" enctype="multipart/form-data">
+                    ${post.postContent}
 
-                        <input type="hidden" name="id" value="${post.id}">
-                        <div class="form-group-full">
-                            <div class="col-md-1 control-label">标题:</div>
-                            <div class="col-md-11">
-                                <input name="postTitle" class="form-control m-b-15" type="text" style="width: 100%"
-                                       value="${post.postTitle}" autocomplete="off"/>
-                            </div>
-
-                            <label class="col-md-1 control-label">内容:</label>
-                            <div class="col-md-11" >
-                                <textarea id="postContent" name="postContent" class="m-b-15" style="width: 100%">${post.postContent}</textarea>
-                            </div>
-
-                            <label class="col-md-1 control-label">附件:</label>
-                            <div class="col-md-11">
-                                <input type="file" name="file" class="form-control m-b-15" style="width: 100%">
-                            </div>
-
-                            <button type="submit" class="btn btn-info round" style="float:right;">
-                                <span class="btn-label"><i class="fa fa-exclamation"></i></span>提交
-                            </button>
-                        </div>
-                    </form>
+                    <br/><br/><br/><br/>
+                    <div class="input-group">
+                        <input name="postSearch" class="form-control input-search" placeholder="评论.." type="text"
+                               value="${postSearch}" autocomplete="off">
+                        <span class="input-group-btn">
+                                  <button class="btn btn-primary" type="submit"><i class="fa fa-send"></i></button>
+                        </span>
+                    </div>
+                    <br/><br/>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td width="80%">
+                                1111111
+                            </td>
+                            <td width="10%">${post.name}</td>
+                            <td width="10%">${post.browseCount}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                1111111
+                            </td>
+                            <td>${post.name}</td>
+                            <td>${post.browseCount}</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -90,13 +97,7 @@
 <script src="/js/plugin.js"></script>
 
 <script type="text/javascript">
-    $(function () {
-        var ue = UE.getEditor('postContent', { zIndex: 0});
 
-        ue.ready(function () {
-            ue.setHeight(420);
-        });
-    });
 </script>
 
 </body>

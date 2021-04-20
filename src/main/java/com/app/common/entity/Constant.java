@@ -10,6 +10,8 @@ import java.util.Map;
 public class Constant {
     
     public static final String USER_PORTRAIT_PATH = "/image/user/";
+    
+    public static final String POST_PORTRAIT_PATH = "/file/post/";
 
     public static final String USER_ORDER_LIST = "userOrderList";
 
