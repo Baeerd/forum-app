@@ -26,7 +26,7 @@
                 <div class="regist-inner">
 
                     <div class="logo">
-                        <img src="/assets/images/logo-dark.png"  alt="logo"/>
+                        <img src="/assets/images/logo-dark.jpg"  alt="logo" style="width: 100px; height: 100px"/>
                     </div>
                     <br/><br/>
                     <h2 class="header2-title text-center">校内考研互助系统</h2>
@@ -36,18 +36,18 @@
                     
                     <form action="/system/regist">
                         <div class="login-group">
-                            <input type="text" class="form-control requireField" name="username" placeholder="用户名">
+                            <input type="text" class="form-control requireField" name="username" placeholder="用户名" autocomplete="off">
                         </div>
                         <br/><br/>
 
                         <div class="login-group">
-                            <input type="password" class="form-control requireField" name="password" placeholder="密码">
+                            <input type="password" class="form-control requireField" name="password" placeholder="密码" autocomplete="off">
                         </div>
 
                         <br/><br/>
 
                         <div class="login-group">
-                            <input type="text" class="form-control requireField" name="name" placeholder="姓名">
+                            <input type="text" class="form-control requireField" name="name" placeholder="姓名" autocomplete="off">
                         </div>
 
                         <br/><br/>
@@ -97,7 +97,7 @@
                         <br/><br/>
 
                         <div class="login-group">
-                            <input id="submit" type="submit" disabled value="注册" class="btn btn-primary btn-block">
+                            <input id="submit" type="submit" disabled value="注册" class="btn btn-primary btn-block" style="width: 85%">
                         </div>
 
                         <br/><br/><br/>

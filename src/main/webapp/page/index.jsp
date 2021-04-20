@@ -35,7 +35,7 @@
                             <input type="hidden" name="pageNum"/>
                             <input type="hidden" name="pageSize"/>
                             <div class="input-group">
-                                <input name="postSearch" class="form-control input-search" placeholder="搜索..." type="text" value="${postSearch}">
+                                <input name="postSearch" class="form-control input-search" placeholder="搜索..." type="text" value="${postSearch}" autocomplete="off">
                                 <span class="input-group-btn">
                                   <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                                   </span> </div>

@@ -2512,6 +2512,11 @@ ul.doughnut-legend li span {
 	width:80%;
 }
 
+.form-group-full{
+	float:left;
+	width:100%;
+}
+
 .login-group{
 	float:left;
 	width:100%;

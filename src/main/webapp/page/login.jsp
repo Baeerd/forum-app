@@ -23,7 +23,7 @@
                 <div class="login-inner">
 
                     <div class="logo">
-                        <img src="/assets/images/logo-dark.png"  alt="logo"/>
+                        <img src="/assets/images/logo-dark.jpg"  alt="logo" style="width: 100px; height: 100px"/>
                     </div>
                     <br/><br/>
                     <h2 class="header2-title text-center">校内考研互助系统</h2>
@@ -39,13 +39,13 @@
                         <br/><br/><br/>
 
                         <div class="login-group">
-                            <input type="password" class="form-control" name="password"  placeholder="密码">
+                            <input type="password" class="form-control" name="password"  placeholder="密码" >
                         </div>
 
                         <br/><br/><br/>
 
                         <div class="login-group">
-                            <input type="submit" value="登录" class="btn btn-primary btn-block" >
+                            <input type="submit" value="登录" class="btn btn-primary btn-block" style="width: 85%">
                         </div>
 
                         <br/><br/><br/>
