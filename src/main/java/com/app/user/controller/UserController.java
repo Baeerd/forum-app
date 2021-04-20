@@ -106,6 +106,11 @@ public class UserController extends BaseController<User> {
         return modelAndView;
     }
 
+    /**
+     * 用户详细信息
+     * @param request
+     * @return
+     */
     @RequestMapping("/userDetail")
     public ModelAndView userDetail(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView("/user/userDetail");
@@ -120,6 +125,13 @@ public class UserController extends BaseController<User> {
         return mv;
     }
 
+    /**
+     * 更新用户信息
+     * @param request
+     * @param response
+     * @param user
+     * @param file
+     */
     @RequestMapping(value="/updateUser", consumes="multipart/form-data", method=RequestMethod.POST)
     public void updateUser(HttpServletRequest request, HttpServletResponse response, User user,
                                    @RequestParam(value ="file", required = false) MultipartFile file) {

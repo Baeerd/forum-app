@@ -17,11 +17,6 @@
 
 <body class="sticky-header">
 
-    <!-- 菜单 -->
-    <%@include file="../menu.jsp"%>
-
-
-
     <!-- main content start-->
     <div class="main-content" >
 
