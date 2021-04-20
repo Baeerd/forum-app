@@ -30,17 +30,37 @@
             <div class="col-md-12">
                 <div class="white-box">
                     <h1 align="center">${post.postTitle}</h1>
-                    <h5 align="right">发表人：${post.createdBy}</h5>
-                    <h5 align="right">发表时间：${post.createdDt}</h5>
+                    <div class="bootstrap-tagsinput">
+                        <h5 align="left">
+                            <img src="/image/user/admin.png" style="width: 50px; height: 50px">
+                            发表人：${post.createdBy} |
+                            学号：xxxxxxxx |
+                            性别：男 |
+                            年级：aaa |
+                            专业：xx专业 |
+                            联系方式：88888888 
+                        </h5>
+                        <h5 align="right">发表时间：2021-04-20 14:46:22</h5>
+                    </div>
 
-                    ${post.postContent}
+                    <br/><br/>
+                    
+                    <div class="bootstrap-tagsinput">
+                        ${post.postContent}
+                    </div>
 
-                    <br/><br/><br/><br/>
+                    <br/><br/>
+
+                    下载附件：<a href="#">aaaa.zip</a>
+                    
+                    <br/><br/><br/>
                     <div class="input-group">
                         <input name="postSearch" class="form-control input-search" placeholder="评论.." type="text"
                                value="${postSearch}" autocomplete="off">
                         <span class="input-group-btn">
-                                  <button class="btn btn-primary" type="submit"><i class="fa fa-send"></i></button>
+                            <button class="btn btn-primary round" type="submit">
+                                <span class="btn-label"><i class="fa fa-send"></i></span>评论
+                            </button>
                         </span>
                     </div>
                     <br/><br/>
@@ -48,17 +68,17 @@
                         <tbody>
                         <tr>
                             <td width="80%">
-                                1111111
+                                评论1111111
                             </td>
                             <td width="10%">${post.name}</td>
-                            <td width="10%">${post.browseCount}</td>
+                            <td width="10%">2021-04-20 16:03:53</td>
                         </tr>
                         <tr>
                             <td>
-                                1111111
+                                评论2222222
                             </td>
                             <td>${post.name}</td>
-                            <td>${post.browseCount}</td>
+                            <td>2021-04-20 16:03:53</td>
                         </tr>
                         </tbody>
                     </table>
