@@ -1,6 +1,8 @@
 package com.app.post.entity;
 
 import com.app.common.entity.AbstractEntity;
+import com.app.common.util.Util;
+
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -35,9 +37,12 @@ public class Post extends AbstractEntity {
     * 是否精品
     */
     private String boutique;
-    
-    private String name;
 
+    /**
+     * 发表人中文名称
+     */
+    private String name;
+    
     /**
     * 获取帖子id
     */
@@ -129,4 +134,20 @@ public class Post extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getCreatedDtView() {
+        if(this.getCreatedDt() != null) {
+            return Util.formatDateTime(this.getCreatedDt());
+        }
+        return null;
+    }
+    
+    public String getFileName() {
+        String postFile = this.getPostFile();
+        if(postFile!=null) {
+            return postFile.substring(postFile.lastIndexOf("/")+1);
+        }
+        return null;
+    }
+
 }

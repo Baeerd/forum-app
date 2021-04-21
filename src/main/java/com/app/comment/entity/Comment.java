@@ -1,6 +1,9 @@
 package com.app.comment.entity;
 
 import com.app.common.entity.AbstractEntity;
+import com.app.common.util.LoginUtil;
+import com.app.common.util.Util;
+
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -19,13 +22,17 @@ public class Comment extends AbstractEntity {
     /**
     * 评价时间
     */
-    private String evaluateDt;
+    private Date evaluateDt;
 
     /**
     * 人员id
     */
     private String userId;
 
+    /**
+     * 人员中文名称
+     */
+    private String name;
 
     /**
     * 获取帖子id
@@ -58,14 +65,14 @@ public class Comment extends AbstractEntity {
     /**
     * 获取评价时间
     */
-    public String getEvaluateDt() {
+    public Date getEvaluateDt() {
         return evaluateDt;
     }
 
     /**
     * 设置评价时间
     */
-    public void setEvaluateDt(String evaluateDt) {
+    public void setEvaluateDt(Date evaluateDt) {
         this.evaluateDt = evaluateDt;
     }
 
@@ -81,6 +88,21 @@ public class Comment extends AbstractEntity {
     */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEvaluateDtView() {
+        if(this.getEvaluateDt() != null) {
+            return Util.formatDateTime(this.getEvaluateDt());
+        }
+        return null;
     }
 
 }

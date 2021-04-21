@@ -55,7 +55,7 @@
                                 <c:forEach items="${page.list}" var="post">
                                     <tr>
                                         <td>
-                                            <a href="#">${post.postTitle}</a>
+                                            <a href="/post/postBrowse?id=${post.id}">${post.postTitle}</a>
                                             <c:if test="${post.boutique == '1'}">
                                                 <img src="/image/post/boutique.png" style="width: 20px; height: 20px"/>
                                             </c:if>

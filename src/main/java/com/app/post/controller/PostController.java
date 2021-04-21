@@ -5,6 +5,7 @@ import com.app.common.entity.PageModel;
 import com.app.common.exception.MessageException;
 import com.app.common.util.Util;
 import com.app.post.entity.Post;
+import com.app.post.entity.PostBrowse;
 import com.app.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -92,8 +93,8 @@ public class PostController extends BaseController<Post> {
         ModelAndView mv = new ModelAndView("/post/postBrowse");
         String jsonFromRequest = super.getJsonFromRequest(request);
         Map<String, String> params = Util.jsonToMap(jsonFromRequest);
-        List<Post> postList = postService.findByParam(params);
-        mv.addObject("post", postList.get(0));
+        PostBrowse postBrowse = postService.findPostBrowse(params);
+        mv.addObject("postBrowse", postBrowse);
         return mv;
     }
     

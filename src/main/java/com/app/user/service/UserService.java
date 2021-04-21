@@ -23,4 +23,12 @@ public interface UserService extends BaseService<User> {
      * @param file
      */
     void updateUser(HttpServletRequest request, User user, MultipartFile file);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return
+     */
+    User findByUserName(String username);
+    
 }

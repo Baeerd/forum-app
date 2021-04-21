@@ -49,7 +49,7 @@ CREATE TABLE [dbo].[table_comment](
 	[created_by] [varchar](32) NULL,
 	[POST_ID] [bigint] NULL,
 	[EVALUATE_CONTENT] [varchar](255) NULL,
-	[EVALUATE_DT] [varbinary](max) NULL,
+	[EVALUATE_DT] [datetime2](7) NULL,
 	[user_id] [bigint] NULL,
  CONSTRAINT [_copy_2] PRIMARY KEY CLUSTERED 
 (
@@ -161,3 +161,6 @@ SELECT u.*,
 (SELECT c.NAME from DATA_CONFIG c where c.VALUE = u.LEVEL and c.TYPE_ID = 'level') as levelView,
 (SELECT c.NAME from DATA_CONFIG c where c.VALUE = u.role and c.TYPE_ID = 'role') as roleView
  from TABLE_USER u;
+
+create view VIEW_COMMENT as 
+SELECT c.*, u.name from TABLE_COMMENT c left join TABLE_USER u on c.user_id = u.id;

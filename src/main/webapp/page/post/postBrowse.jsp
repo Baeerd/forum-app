@@ -29,36 +29,38 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="white-box">
-                    <h1 align="center">${post.postTitle}</h1>
+                    <h1 align="center">${postBrowse.post.postTitle}</h1>
                     <div class="bootstrap-tagsinput">
                         <h5 align="left">
-                            <img src="/image/user/admin.png" style="width: 50px; height: 50px">
-                            发表人：${post.createdBy} |
-                            学号：xxxxxxxx |
-                            性别：男 |
-                            年级：aaa |
-                            专业：xx专业 |
-                            联系方式：88888888 
+                            <img src="${postBrowse.user.portrait}" style="width: 50px; height: 50px">
+                            发表人：${postBrowse.user.name} |
+                            学号：${postBrowse.user.studyCode} |
+                            性别：${postBrowse.user.sexView} |
+                            年级：${postBrowse.user.levelView} |
+                            专业：${postBrowse.user.subject} |
+                            联系方式：${postBrowse.user.phone} 
                         </h5>
-                        <h5 align="right">发表时间：2021-04-20 14:46:22</h5>
+                        <h5 align="right">发表时间：${postBrowse.post.createdDtView}</h5>
                     </div>
 
                     <br/><br/>
                     
                     <div class="bootstrap-tagsinput">
-                        ${post.postContent}
+                        ${postBrowse.post.postContent}
                     </div>
 
                     <br/><br/>
 
-                    下载附件：<a href="#">aaaa.zip</a>
+                    下载附件：<a href="${postBrowse.post.postFile}">${postBrowse.post.fileName}</a>
                     
                     <br/><br/><br/>
                     <div class="input-group">
-                        <input name="postSearch" class="form-control input-search" placeholder="评论.." type="text"
-                               value="${postSearch}" autocomplete="off">
+                        <input type="hidden" id="userId" value="${postBrowse.user.id}">
+                        <input type="hidden" id="postId" value="${postBrowse.post.id}">
+                        <input id="evaluateContent" class="form-control input-search" placeholder="评论.." type="text"
+                               autocomplete="off">
                         <span class="input-group-btn">
-                            <button class="btn btn-primary round" type="submit">
+                            <button class="btn btn-primary round" type="button" onclick="addComment()">
                                 <span class="btn-label"><i class="fa fa-send"></i></span>评论
                             </button>
                         </span>
@@ -66,20 +68,15 @@
                     <br/><br/>
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <td width="80%">
-                                评论1111111
-                            </td>
-                            <td width="10%">${post.name}</td>
-                            <td width="10%">2021-04-20 16:03:53</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                评论2222222
-                            </td>
-                            <td>${post.name}</td>
-                            <td>2021-04-20 16:03:53</td>
-                        </tr>
+                        <c:forEach items="${postBrowse.comments}" var="comment">
+                            <tr>
+                                <td width="80%">
+                                    ${comment.evaluateContent}
+                                </td>
+                                <td width="10%">${comment.name}</td>
+                                <td width="10%">${comment.evaluateDtView}</td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
@@ -118,6 +115,25 @@
 
 <script type="text/javascript">
 
+    /**
+     * 提交评论
+     */
+    function addComment() {
+        var userId = $("#userId").val();
+        var postId = $("#postId").val();
+        var evaluateContent = $("#evaluateContent").val();
+        var json = {
+            'userId' : userId,
+            'postId' : postId,
+            'evaluateDt' : new Date(),
+            'evaluateContent' : evaluateContent
+        };
+        $.post("/comment/addJson",json,function(result){
+            alert("评论成功");
+            window.location.reload();
+        });
+    }
+    
 </script>
 
 </body>

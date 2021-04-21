@@ -63,4 +63,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
         }
     }
 
+    @Override
+    public User findByUserName(String username) {
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+        List<User> users = this.findByParam(params);
+        return users.get(0);
+    }
+
 }
