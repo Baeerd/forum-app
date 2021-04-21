@@ -45,11 +45,11 @@
         </dependency>
 
         <!-- 数据库管理 -->
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>5.2.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-core</artifactId>-->
+<!--            <version>5.2.1</version>-->
+<!--        </dependency>-->
 
         <!-- oracle驱动 -->
        <!--  <dependency>
@@ -58,10 +58,11 @@
             <version>11.2.0.1.0</version>
         </dependency> -->
 
-        <!-- Mysql驱动 -->
+        <!-- SQLServer驱动 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>sqljdbc4</artifactId>
+            <version>4.0</version>
         </dependency>
 
         <!-- 分页插件 -->

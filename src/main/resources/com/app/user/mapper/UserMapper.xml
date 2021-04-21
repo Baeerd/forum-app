@@ -121,7 +121,6 @@
 
     <insert id="insert" parameterType="com.app.user.entity.User" >
         insert into TABLE_USER (
-           id,
            CREATED_DT,
            CREATED_BY,
            USERNAME,
@@ -137,7 +136,6 @@
            role
         )
         values (
-            #{id,jdbcType=VARCHAR},
             #{createdDt,jdbcType=TIMESTAMP},
             #{createdBy,jdbcType=VARCHAR},
             #{username,jdbcType=VARCHAR},
@@ -157,9 +155,6 @@
     <update id="update" parameterType="com.app.user.entity.User" >
         update TABLE_USER set
         <trim suffixOverrides=",">
-            <if test="id != null" >
-                id = #{id,jdbcType=VARCHAR},
-            </if>
             <if test="createdDt != null" >
                 CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
             </if>

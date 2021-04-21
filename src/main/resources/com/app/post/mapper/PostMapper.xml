@@ -127,7 +127,6 @@
 
     <insert id="insert" parameterType="com.app.post.entity.Post" >
         insert into TABLE_POST (
-           id,
            CREATED_DT,
            CREATED_BY,
            POST_CODE,
@@ -138,7 +137,6 @@
            Boutique
         )
         values (
-            #{id,jdbcType=VARCHAR},
             #{createdDt,jdbcType=TIMESTAMP},
             #{createdBy,jdbcType=VARCHAR},
             #{postCode,jdbcType=VARCHAR},
@@ -153,9 +151,6 @@
     <update id="update" parameterType="com.app.post.entity.Post" >
         update TABLE_POST set 
         <trim suffixOverrides=",">
-            <if test="id != null" >
-                id = #{id,jdbcType=VARCHAR},
-            </if>
             <if test="createdDt != null" >
                 CREATED_DT = #{createdDt,jdbcType=TIMESTAMP},
             </if>

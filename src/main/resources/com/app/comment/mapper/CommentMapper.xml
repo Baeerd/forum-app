@@ -72,7 +72,6 @@
 
     <insert id="insert" parameterType="com.app.comment.entity.Comment" >
         insert into TABLE_COMMENT (
-           ID,
            created_dt,
            created_by,
            POST_ID,
@@ -81,7 +80,6 @@
            user_id
         )
         values (
-            #{id,jdbcType=VARCHAR},
             #{createdDt,jdbcType=TIMESTAMP},
             #{createdBy,jdbcType=VARCHAR},
             #{postId,jdbcType=VARCHAR},
@@ -92,11 +90,8 @@
     </insert>
 
     <update id="update" parameterType="com.app.comment.entity.Comment" >
-        update TABLE_COMMENT set version = version + 1,
+        update TABLE_COMMENT set
         <trim suffixOverrides=",">
-            <if test="id != null" >
-                ID = #{id,jdbcType=VARCHAR},
-            </if>
             <if test="createdDt != null" >
                 created_dt = #{createdDt,jdbcType=TIMESTAMP},
             </if>
