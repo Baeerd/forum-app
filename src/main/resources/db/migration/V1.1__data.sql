@@ -163,4 +163,4 @@ SELECT u.*,
  from TABLE_USER u;
 
 create view VIEW_COMMENT as 
-SELECT c.*, u.name from TABLE_COMMENT c left join TABLE_USER u on c.user_id = u.id;
+SELECT c.*, u.name, P.POST_TITLE from TABLE_COMMENT c left join TABLE_USER u on c.user_id = u.id left JOIN table_post P ON C.POST_ID = P.id;

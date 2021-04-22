@@ -40,10 +40,11 @@
                              
                             <div class="search-box-top">
                               <form action="/comment/commentList">
+                                  <input type="hidden" name="userId" value="${loginUser.id}">
                                   <input type="hidden" name="pageNum"/>
                                   <input type="hidden" name="pageSize"/>
                                 <div class="input-group">
-                                  <input name="commentSearch" class="form-control input-search" placeholder="搜索..." type="text" value="${commentSearch}">
+                                  <input name="evaluateContent" class="form-control input-search" placeholder="评论内容搜索..." type="text" value="${commentSearch}">
                                   <span class="input-group-btn">
                                   <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                                   </span> </div>
@@ -52,15 +53,15 @@
 
                              <c:forEach items="${page.list}" var="comment">
                                  <div class="search-item">
-                                     <h3><a href="javascript:void(0);">用户：${comment.createdBy}&nbsp;&nbsp;(${comment.partName}--${comment.movieName})</a></h3>
-                                     <a class="search-link"   href="javascript:void(0);">${comment.createdDtView}</a>
+                                     <a class="search-link"   href="javascript:void(0);">帖子标题：${comment.postTitle}</a>
+                                     <p>评论时间：${comment.evaluateDtView}</p>
+                                     <p>评论内容：${comment.evaluateContent}</p>
 
                                      <div align="right">
                                          <button type="button" class="btn btn-danger round" onclick="deleteComment(${comment.id});">
                                              <span class="btn-label"><i class="fa fa-times"></i></span>删除
                                          </button>
                                      </div>
-                                     <p>${comment.content}</p>
                                  </div>
                              </c:forEach>
 

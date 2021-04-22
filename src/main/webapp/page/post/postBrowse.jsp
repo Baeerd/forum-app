@@ -32,7 +32,14 @@
                     <h1 align="center">${postBrowse.post.postTitle}</h1>
                     <div class="bootstrap-tagsinput">
                         <h5 align="left">
-                            <img src="${postBrowse.user.portrait}" style="width: 50px; height: 50px">
+                            <c:choose>
+                                <c:when test="${postBrowse.user.portrait != null}">
+                                    <img src="${postBrowse.user.portrait}" style="width: 50px; height: 50px">
+                                </c:when>
+                                <c:otherwise>
+                                    <img src="/image/index/portrait.png" style="width: 50px; height: 50px">
+                                </c:otherwise>
+                            </c:choose>
                             发表人：${postBrowse.user.name} |
                             学号：${postBrowse.user.studyCode} |
                             性别：${postBrowse.user.sexView} |
@@ -54,6 +61,7 @@
                     下载附件：<a href="${postBrowse.post.postFile}">${postBrowse.post.fileName}</a>
                     
                     <br/><br/><br/>
+                    
                     <div class="input-group">
                         <input type="hidden" id="userId" value="${postBrowse.user.id}">
                         <input type="hidden" id="postId" value="${postBrowse.post.id}">
@@ -119,6 +127,13 @@
      * 提交评论
      */
     function addComment() {
+        
+        var user = ${loginUser != null};
+        if(!user) {
+            alert("请登陆后评论");
+            return;
+        }
+        
         var userId = $("#userId").val();
         var postId = $("#postId").val();
         var evaluateContent = $("#evaluateContent").val();

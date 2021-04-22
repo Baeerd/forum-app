@@ -35,6 +35,11 @@ public class Comment extends AbstractEntity {
     private String name;
 
     /**
+     * 帖子标题
+     */
+    private String postTitle;
+
+    /**
     * 获取帖子id
     */
     public String getPostId() {
@@ -88,6 +93,14 @@ public class Comment extends AbstractEntity {
     */
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
     }
 
     public String getName() {

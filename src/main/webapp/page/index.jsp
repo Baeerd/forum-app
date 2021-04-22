@@ -35,7 +35,7 @@
                             <input type="hidden" name="pageNum"/>
                             <input type="hidden" name="pageSize"/>
                             <div class="input-group">
-                                <input name="postSearch" class="form-control input-search" placeholder="搜索..." type="text" value="${postSearch}" autocomplete="off">
+                                <input name="postSearch" class="form-control input-search" placeholder="标题作者搜索..." type="text" value="${postSearch}" autocomplete="off">
                                 <span class="input-group-btn">
                                   <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
                                   </span> </div>
@@ -62,23 +62,27 @@
                                         </td>
                                         <td>${post.name}</td>
                                         <td>${post.browseCount}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-danger round" style="font-size: 10px;padding: 4px 12px;" onclick="deletePost(${post.id});">
-                                                <span class="btn-label"><i class="fa fa-times"></i></span>删除
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary round" style="font-size: 10px;padding: 4px 12px;" onclick="boutiquePost(${post.id}, ${post.boutique});">
-                                                <c:choose>
-                                                    <c:when test="${post.boutique == '1'}">
-                                                        <span class="btn-label"><i class="fa fa-edit"></i></span>取消
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <span class="btn-label"><i class="fa fa-edit"></i></span>加精
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </button>
-                                        </td>
+                                        <c:if test="${loginUser.role == '0' or loginUser.username == post.createdBy}">
+                                            <td>
+                                                <button type="button" class="btn btn-danger round" style="font-size: 10px;padding: 4px 12px;" onclick="deletePost(${post.id});">
+                                                    <span class="btn-label"><i class="fa fa-times"></i></span>删除
+                                                </button>
+                                            </td>
+                                        </c:if>
+                                        <c:if test="${loginUser.role == '0' }">
+                                            <td>
+                                                <button type="button" class="btn btn-primary round" style="font-size: 10px;padding: 4px 12px;" onclick="boutiquePost(${post.id}, ${post.boutique});">
+                                                    <c:choose>
+                                                        <c:when test="${post.boutique == '1'}">
+                                                            <span class="btn-label"><i class="fa fa-edit"></i></span>取消
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="btn-label"><i class="fa fa-edit"></i></span>加精
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </button>
+                                            </td>
+                                        </c:if>
                                     </tr>
                                 </c:forEach>
                             </tbody>

@@ -45,7 +45,6 @@ public class PostController extends BaseController<Post> {
             param = Util.jsonToMap(jsonFromRequest);
         }
         PageModel<Post> page = postService.findByPage(param);
-        modelAndView.addObject("partName", param.get("partName"));
         modelAndView.addObject("page", page);
         return modelAndView;
     }

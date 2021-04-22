@@ -19,6 +19,7 @@
         <!-- 人员id -->
         <result column="user_id" property="userId" jdbcType="VARCHAR" />
         <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="POST_TITLE" property="postTitle" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="Base_Column_List" >
@@ -29,7 +30,8 @@
         EVALUATE_CONTENT,
         EVALUATE_DT,
         user_id,
-        NAME
+        NAME,
+        POST_TITLE
     </sql>
 
     <select id="find" resultMap="BaseResultMap" parameterType="java.util.Map">
@@ -50,7 +52,7 @@
                 AND POST_ID = #{postId,jdbcType=VARCHAR}
             </if>
             <if test="evaluateContent != null" >
-                AND EVALUATE_CONTENT = #{evaluateContent,jdbcType=VARCHAR}
+                AND EVALUATE_CONTENT like '%${evaluateContent}%'
             </if>
             <if test="evaluateDt != null" >
                 AND EVALUATE_DT = #{evaluateDt,jdbcType=TIMESTAMP}
@@ -66,6 +68,35 @@
         <if test="order == null">
             ID DESC
         </if>
+    </select>
+
+    <select id="findCounts" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select
+        count(0)
+        from VIEW_COMMENT
+        <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="id != null" >
+                AND ID = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="createdDt != null" >
+                AND created_dt = #{createdDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="createdBy != null" >
+                AND created_by = #{createdBy,jdbcType=VARCHAR}
+            </if>
+            <if test="postId != null" >
+                AND POST_ID = #{postId,jdbcType=VARCHAR}
+            </if>
+            <if test="evaluateContent != null" >
+                AND EVALUATE_CONTENT like '%${evaluateContent}%'
+            </if>
+            <if test="evaluateDt != null" >
+                AND EVALUATE_DT = #{evaluateDt,jdbcType=TIMESTAMP}
+            </if>
+            <if test="userId != null" >
+                AND user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+        </trim>
     </select>
 
     <delete id="delete" parameterType="com.app.comment.entity.Comment" >

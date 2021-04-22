@@ -30,13 +30,15 @@
                     </li>
                 </c:when>
                 <c:otherwise>
-                    <li>
-                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                           onclick="window.location='/post/postDetail';">
-                            <img src="/image/index/add.png"/>
-                            新建帖子
-                        </a>
-                    </li>
+                    <c:if test="${loginUser.role != '2'}">
+                        <li>
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                               onclick="window.location='/post/postDetail';">
+                                <img src="/image/index/add.png"/>
+                                新建帖子
+                            </a>
+                        </li>
+                    </c:if>
                     <li>
                         <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             <c:choose>
@@ -52,9 +54,11 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right" >
                             <li><a href="/system/userDetail?username=${loginUser.username}"> <i class="fa fa-user"></i> 个人信息 </a></li>
-                            <li><a href="/?postSearch=${loginUser.name}"> <i class="fa fa-info"></i> 我的帖子 </a></li>
-                            <li><a href="/comment/commentList"> <i class="fa fa-info"></i> 我的评论 </a></li>
-                            <li><a href="/system/logout"> <i class="fa fa-lock"></i> 注销 </a></li>
+                            <c:if test="${loginUser.role != '2'}">
+                                <li><a href="/?postSearch=${loginUser.name}"> <i class="fa fa-info"></i> 我的帖子 </a></li>
+                            </c:if>
+                            <li><a href="/comment/commentList?userId=${loginUser.id}"> <i class="fa fa-info"></i> 我的评论 </a></li>
+                            <li><a href="/system/logout"><i class="fa fa-lock"></i> 注销 </a></li>
                         </ul>
                     </li>
                 </c:otherwise>

@@ -45,8 +45,8 @@
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
             <if test="postSearch != null" >
                 AND (
-                POST_TITLE like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
-                OR NAME like concat('%',#{postSearch,jdbcType=VARCHAR} ,'%')
+                POST_TITLE like '%${postSearch}%' 
+                OR NAME like '%${postSearch}%'
                 )
             </if>
             <if test="id != null" >
@@ -89,8 +89,14 @@
     <select id="findCounts" parameterType="java.util.Map" resultType="java.lang.Integer">
         select
         count(0)
-        from TABLE_POST
+        from VIEW_POST
         <trim prefix="WHERE" prefixOverrides="AND |OR ">
+            <if test="postSearch != null" >
+                AND (
+                POST_TITLE like '%${postSearch}%'
+                OR NAME like '%${postSearch}%'
+                )
+            </if>
             <if test="id != null" >
                 AND id = #{id,jdbcType=VARCHAR}
             </if>
